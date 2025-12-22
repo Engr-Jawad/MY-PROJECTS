@@ -107,3 +107,96 @@ elif user_action=='scissors':
 
 # # Start GUI loop
 # root.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import tkinter as tk
+from PIL import Image, ImageTk
+import random
+
+# ----------------- Game Logic -----------------
+choices = ["rock", "paper", "scissors"]
+
+def play(user_choice):
+    computer_choice = random.choice(choices)
+
+    result_text = f"You chose {user_choice}\nComputer chose {computer_choice}\n\n"
+
+    if user_choice == computer_choice:
+        result_text += "It's a Tie!"
+    elif user_choice == "rock":
+        if computer_choice == "paper":
+            result_text += "Paper covers Rock\nComputer Wins!"
+        else:
+            result_text += "Rock breaks Scissors\nYou Win!"
+    elif user_choice == "paper":
+        if computer_choice == "scissors":
+            result_text += "Scissors cut Paper\nComputer Wins!"
+        else:
+            result_text += "Paper covers Rock\nYou Win!"
+    elif user_choice == "scissors":
+        if computer_choice == "rock":
+            result_text += "Rock breaks Scissors\nComputer Wins!"
+        else:
+            result_text += "Scissors cut Paper\nYou Win!"
+
+    result_label.config(text=result_text)
+
+# ----------------- GUI Setup -----------------
+root = tk.Tk()
+root.title("Rock Paper Scissors")
+root.geometry("400x450")
+
+title = tk.Label(root, text="Rock Paper Scissors", font=("Arial", 18, "bold"))
+title.pack(pady=10)
+
+# ----------------- Load Images -----------------
+rock_img = ImageTk.PhotoImage(Image.open("rock.png").resize((100, 100)))
+paper_img = ImageTk.PhotoImage(Image.open("paper.png").resize((100, 100)))
+scissors_img = ImageTk.PhotoImage(Image.open("scissors.png").resize((100, 100)))
+
+# ----------------- Buttons -----------------
+button_frame = tk.Frame(root)
+button_frame.pack(pady=20)
+
+rock_btn = tk.Button(button_frame, image=rock_img, command=lambda: play("rock"))
+rock_btn.grid(row=0, column=0, padx=10)
+
+paper_btn = tk.Button(button_frame, image=paper_img, command=lambda: play("paper"))
+paper_btn.grid(row=0, column=1, padx=10)
+
+scissors_btn = tk.Button(button_frame, image=scissors_img, command=lambda: play("scissors"))
+scissors_btn.grid(row=0, column=2, padx=10)
+
+# ----------------- Result Label -----------------
+result_label = tk.Label(root, text="", font=("Arial", 12), justify="center")
+result_label.pack(pady=20)
+
+root.mainloop()
+rock.png
+paper.png
+scissors.png
